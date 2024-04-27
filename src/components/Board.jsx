@@ -16,7 +16,7 @@ function Board() {
       [0, 4, 8],
       [2, 4, 6],
     ];
-    for(let condition of winCondition){
+    for (let condition of winCondition) {
       const [a, b, c] = condition;
       if (
         player[a] !== null &&
@@ -25,99 +25,101 @@ function Board() {
       ) {
         return player[a];
       }
-      return false;
     }
+    return false;
   };
   const isWinner = checkWinner();
 
   const handleClick = (index) => {
     if (player[index] !== null) {
-        return;
-      }
+      return;
+    }
     const copyPlayer = [...player];
-    
+
     isXTurn ? (copyPlayer[index] = "X") : (copyPlayer[index] = "O");
     setPlayer(copyPlayer);
     setXTurn(!isXTurn);
   };
 
-  const handleReset = () =>{
-    setPlayer(Array(9).fill(null))
-  }
+  const handleReset = () => {
+    setPlayer(Array(9).fill(null));
+  };
 
   return (
     <>
-    {isWinner ? (<div>{isWinner} won the  game
-    <div>
-        <button className="btn btn-outline" onClick={handleReset}>Play Again</button>
-    </div>
-    
-    </div>):(
-      <div>
-        <div className="flex justify-center items-center">
-          <Squares
-            value={player[0]}
-            onClick={() => {
-              handleClick(0);
-            }}
-          />
-          <Squares
-            value={player[1]}
-            onClick={() => {
-              handleClick(1);
-            }}
-          />
-          <Squares
-            value={player[2]}
-            onClick={() => {
-              handleClick(2);
-            }}
-          />
+      {isWinner ? (
+        <div>
+          {isWinner} won the game
+          <div>
+            <button className="btn btn-outline" onClick={handleReset}>
+              Play Again
+            </button>
+          </div>
         </div>
-        <div className="flex ">
-          <Squares
-            value={player[3]}
-            onClick={() => {
-              handleClick(3);
-            }}
-          />
-          <Squares
-            value={player[4]}
-            onClick={() => {
-              handleClick(4);
-            }}
-          />
-          <Squares
-            value={player[5]}
-            onClick={() => {
-              handleClick(5);
-            }}
-          />
+      ) : (
+        <div>
+          <div className="flex justify-center items-center">
+            <Squares
+              value={player[0]}
+              onClick={() => {
+                handleClick(0);
+              }}
+            />
+            <Squares
+              value={player[1]}
+              onClick={() => {
+                handleClick(1);
+              }}
+            />
+            <Squares
+              value={player[2]}
+              onClick={() => {
+                handleClick(2);
+              }}
+            />
+          </div>
+          <div className="flex ">
+            <Squares
+              value={player[3]}
+              onClick={() => {
+                handleClick(3);
+              }}
+            />
+            <Squares
+              value={player[4]}
+              onClick={() => {
+                handleClick(4);
+              }}
+            />
+            <Squares
+              value={player[5]}
+              onClick={() => {
+                handleClick(5);
+              }}
+            />
+          </div>
+          <div className="flex ">
+            <Squares
+              value={player[6]}
+              onClick={() => {
+                handleClick(6);
+              }}
+            />
+            <Squares
+              value={player[7]}
+              onClick={() => {
+                handleClick(7);
+              }}
+            />
+            <Squares
+              value={player[8]}
+              onClick={() => {
+                handleClick(8);
+              }}
+            />
+          </div>
         </div>
-        <div className="flex ">
-          <Squares
-            value={player[6]}
-            onClick={() => {
-              handleClick(6);
-            }}
-          />
-          <Squares
-            value={player[7]}
-            onClick={() => {
-              handleClick(7);
-            }}
-          />
-          <Squares
-            value={player[8]}
-            onClick={() => {
-              handleClick(8);
-            }}
-          />
-        </div>
-      </div>
-      )
-      }
-
+      )}
     </>
   );
 }
