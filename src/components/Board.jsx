@@ -49,16 +49,17 @@ function Board() {
     <>
       {isWinner ? (
         <div>
-          {isWinner} won the game
+          <h2>{isWinner} won the game</h2>
           <div>
             <button className="btn btn-outline" onClick={handleReset}>
               Play Again
             </button>
           </div>
         </div>
-      ) : (
+      ) :(<>
+      <h1 className="my-3 text-3xl font-bold"  >{isXTurn?"Player X's turn":"Player O's turn"}</h1>
         <div>
-          <div className="flex justify-center items-center">
+          <div className="flex">
             <Squares
               value={player[0]}
               onClick={() => {
@@ -119,6 +120,7 @@ function Board() {
             />
           </div>
         </div>
+        </>
       )}
     </>
   );
