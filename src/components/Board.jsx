@@ -4,7 +4,7 @@ import Squares from "./Squares";
 function Board() {
   const [player, setPlayer] = useState(Array(9).fill(null));
   const [isXTurn, setXTurn] = useState(true);
-
+  const [clickCount, setClickCount] = useState(0);
   const checkWinner = () => {
     const winCondition = [
       [0, 1, 2],
@@ -26,11 +26,13 @@ function Board() {
         return player[a];
       }
     }
+    
     return false;
   };
   const isWinner = checkWinner();
 
   const handleClick = (index) => {
+
     if (player[index] !== null) {
       return;
     }
@@ -39,15 +41,29 @@ function Board() {
     isXTurn ? (copyPlayer[index] = "X") : (copyPlayer[index] = "O");
     setPlayer(copyPlayer);
     setXTurn(!isXTurn);
+    setClickCount(clickCount+1);
+    console.log(clickCount)
   };
 
   const handleReset = () => {
     setPlayer(Array(9).fill(null));
+    setClickCount(0);
   };
+
+  const checkDraw = () =>{
+  if(clickCount >= 9 && !isWinner ){
+    return true
+    }
+    else{
+      return false
+    }
+
+  }
+    const draw = checkDraw();
 
   return (
     <>
-      {isWinner ? (
+      {isWinner && !draw &&(
         <div>
           <h2>{isWinner} won the game</h2>
           <div>
@@ -56,7 +72,22 @@ function Board() {
             </button>
           </div>
         </div>
-      ) :(<>
+
+      ) }
+      {draw && !isWinner &&(
+        <div>
+          <h2>Game is Draw</h2>
+          <div>
+            <button className="btn btn-outline" onClick={handleReset}>
+              Play Again
+            </button>
+          </div>
+        </div>
+      )
+      }
+      {!isWinner && !draw &&
+      (
+      <>
       <div className="flex basis-full justify-center items-center">
 
       <h1 className="my-3 text-3xl font-bold"  >{isXTurn?"Player X's turn":"Player O's turn"}</h1>
@@ -126,6 +157,9 @@ function Board() {
         </div>
         </>
       )}
+
+      
+      
     </>
   );
 }
